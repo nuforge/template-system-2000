@@ -1,6 +1,6 @@
 database    
 username  
-password *84tdRFH?nya
+password *84tdRFH!nya
 
 CREATE TABLE members (
     member SERIAL PRIMARY KEY,

@@ -13,9 +13,10 @@
  *  TODO Credits
  */
 
-class WebcomicTV_Network_SiteManager extends SiteManager {
+class WebcomicTV_Network_SiteManager extends SiteManager
+{
 
-    protected $connection_info = array('user' => 'webcomtv_wctvuser', 'password' => '*84tdRFH?nya', 'dbname' => 'webcomtv_webcomictv');
+    protected $connection_info = array('user' => 'webcomtv_wctvuser', 'password' => '*84tdRFH!nya', 'dbname' => 'webcomtv_webcomictv');
     protected $database_connection;
     protected $messageHandler;
     protected $redirectURL = '/login.html';
@@ -23,7 +24,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
     protected $memberPrivileges = array();
     protected $page;
 
-    protected function initialize_WebcomicTV_Network_SiteManager() {
+    protected function initialize_WebcomicTV_Network_SiteManager()
+    {
 
         DEFINE('PRIVILEGE_CLASS_ALL', 'ALL');
         DEFINE('PRIVILEGE_CLASS_ANY', 'ANY');
@@ -68,11 +70,13 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $this->reinitialize();
     }
 
-    protected function reinitialize() {
+    protected function reinitialize()
+    {
         return true;
     }
 
-    public function validateRegisterUser($fa_post_data) {
+    public function validateRegisterUser($fa_post_data)
+    {
         $t_members = $this->loadClass('members');
         $email_pattern = "/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/";
         $username_pattern = "/^[A-Za-z0-9_]+$/";
@@ -154,7 +158,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function registerUser($fa_post_data) {
+    public function registerUser($fa_post_data)
+    {
         $t_members = $this->loadClass('members');
         $member['mem_gender'] = strip_tags($fa_post_data['reg_gender']);
         $member['mem_birthdate'] = strip_tags($fa_post_data['reg_birth_year'] . '-' . $fa_post_data['reg_birth_month'] . '-' . $fa_post_data['reg_birth_day']);
@@ -176,14 +181,16 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function sendRegistrationEmail($fa_email_data) {
+    public function sendRegistrationEmail($fa_email_data)
+    {
         $email = new email();
         if ($email->sendEmailTemplate('register', $fa_email_data)) {
             return true;
         }
     }
 
-    public function validateSendPasswordReminder($f_email) {
+    public function validateSendPasswordReminder($f_email)
+    {
         $t_members = $this->loadClass('members');
         //Check email not empty
         if (empty($f_email)) {
@@ -194,7 +201,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function sendPasswordReminder($f_email) {
+    public function sendPasswordReminder($f_email)
+    {
         $t_members = $this->loadClass('members');
         $member = $t_members->load(array('mem_email' => $f_email));
         if (empty($member)) {
@@ -217,7 +225,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function validateResetPassword($fa_postData) {
+    public function validateResetPassword($fa_postData)
+    {
         $t_members = $this->loadClass('members');
         //Check Email exists
         $member = $t_members->load(array('mem_email' => $fa_postData['reset_email']));
@@ -257,7 +266,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function resetPassword($fa_postData) {
+    public function resetPassword($fa_postData)
+    {
         $t_members = $this->loadClass('members');
         $member = $t_members->load(array('mem_email' => $fa_postData['reset_email']));
         if (empty($member)) {
@@ -267,7 +277,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $this->changePassword($member['member'], md5($fa_postData['new_password']));
     }
 
-    public function changePassword($f_member, $f_password, $f_must_md5=false) {
+    public function changePassword($f_member, $f_password, $f_must_md5 = false)
+    {
         $t_members = $this->loadClass('members');
         $f_password = strip_tags(trim($f_password));
         $set['mem_password'] = ($f_must_md5) ? md5($f_password) : $f_password;
@@ -275,7 +286,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_members->update($set, $where);
     }
 
-    public function updateProfileValidation($fa_post_data, $f_member) {
+    public function updateProfileValidation($fa_post_data, $f_member)
+    {
         $t_members = $this->loadClass('members');
         $t_zip = $this->loadClass('zips');
         $t_countries = $this->loadClass('countries');
@@ -366,7 +378,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function validateUpdateProfileStatus($f_new_status, $f_member) {
+    public function validateUpdateProfileStatus($f_new_status, $f_member)
+    {
         $t_members = $this->loadClass('members');
         $member = $t_members->load($f_member);
         if (empty($member)) {
@@ -381,7 +394,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function updateProfileStatus($f_new_status, $f_member) {
+    public function updateProfileStatus($f_new_status, $f_member)
+    {
         $t_members = $this->loadClass('members');
         $member = $t_members->load($f_member);
         if (empty($member)) {
@@ -399,7 +413,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function updateProfile($fa_post_data, $f_member) {
+    public function updateProfile($fa_post_data, $f_member)
+    {
         $t_members = $this->loadClass('members');
         $member = $t_members->load($f_member);
         if (empty($member)) {
@@ -430,7 +445,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function loadProfileByUsername($f_username) {
+    public function loadProfileByUsername($f_username)
+    {
         $t_members = $this->loadClass('members');
         $t_site_credits = $this->loadClass('site_credits');
         $t_favorites = $this->loadClass('favorites');
@@ -443,7 +459,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $member;
     }
 
-    public function loadProfile($f_member) {
+    public function loadProfile($f_member)
+    {
         $t_members = $this->loadClass('members');
         $t_site_credits = $this->loadClass('site_credits');
 
@@ -454,11 +471,10 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $member;
     }
 
-    public function hideProfile($f_member) {
-        
-    }
+    public function hideProfile($f_member) {}
 
-    public function loginUser($fa_loginInfo) {
+    public function loginUser($fa_loginInfo)
+    {
         $t_members = $this->loadClass('members');
         $fa_loginInfo['password'] = md5($fa_loginInfo['password']);
         $fa_loginInfo['username'] = strtolower($fa_loginInfo['username']);
@@ -470,37 +486,43 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function logoutUser() {
+    public function logoutUser()
+    {
         $t_members = $this->loadClass('members');
         return $t_members->logout();
     }
 
-    public function countMembersList($f_where) {
+    public function countMembersList($f_where)
+    {
         $t_members = $this->loadClass('members');
 
         return $t_members->getCount("member", $f_where);
     }
 
-    public function getMembersList($f_where, $f_page_number=1, $f_show_per_page=25) {
+    public function getMembersList($f_where, $f_page_number = 1, $f_show_per_page = 25)
+    {
         $t_members = $this->loadClass('members');
         $offset = ($f_page_number && $f_show_per_page) ? (($f_page_number - 1) * $f_show_per_page) : false;
 
         return $t_members->getList("mem_unique", $f_where, $f_show_per_page, $offset);
     }
 
-    public function getSimpleMemberList($f_where, $f_column='mem_username') {
+    public function getSimpleMemberList($f_where, $f_column = 'mem_username')
+    {
         $t_members = $this->loadClass('members');
 
         return $t_members->getSimpleList($f_column, 'mem_unique', $f_where);
     }
 
-    public function loadWebcomic($f_webcomic) {
+    public function loadWebcomic($f_webcomic)
+    {
         $t_webcomics = $this->loadClass('webcomics');
         $where = (is_numeric($f_webcomic)) ? $f_webcomic : array('wc_encoded' => $f_webcomic);
         return $t_webcomics->load($where);
     }
 
-    public function loadWebcomicByEncoded($f_comic_encoded) {
+    public function loadWebcomicByEncoded($f_comic_encoded)
+    {
         $t_webcomics = $this->loadClass('webcomics');
 
         $webcomic = $t_webcomics->load(array('wc_encoded' => $f_comic_encoded));
@@ -512,19 +534,22 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $webcomic;
     }
 
-    public function countComics($f_where) {
+    public function countComics($f_where)
+    {
         $t_comic = $this->loadClass('comics');
 
         return $t_comic->getCount('comic', $f_where);
     }
 
-    public function countComicsByWebcomic($f_webcomic) {
+    public function countComicsByWebcomic($f_webcomic)
+    {
         $t_comic = $this->loadClass('comics');
 
         return $t_comic->getCount('comic', array('comic_webcomic' => $f_webcomic));
     }
 
-    public function getNextFreeComicNumber($f_webcomic) {
+    public function getNextFreeComicNumber($f_webcomic)
+    {
         $t_comics = $this->loadClass('comics');
         $t_webcomics = $this->loadClass('webcomics');
         $webcomic = $t_webcomics->load($f_webcomic);
@@ -535,7 +560,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_comics->getNextFreeComicNumber($webcomic['webcomic']);
     }
 
-    public function getChaptersByWebcomic($f_webcomic) {
+    public function getChaptersByWebcomic($f_webcomic)
+    {
         $t_chapters = $this->loadClass('chapters');
         $t_webcomics = $this->loadClass('webcomics');
         $webcomic = $t_webcomics->load($f_webcomic);
@@ -549,31 +575,36 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_chapters->getSimpleList('chapter_title', 'chapter', $where);
     }
 
-    public function getComicList($f_where, $f_page_number=1, $f_show_per_page=10) {
+    public function getComicList($f_where, $f_page_number = 1, $f_show_per_page = 10)
+    {
         $t_comics = $this->loadClass('comics');
         $offset = (($f_page_number - 1) * $f_show_per_page);
         return $t_comics->getList(array('comic_stamp' => 'desc'), $f_where, $f_show_per_page, $offset);
     }
 
-    public function getComicListByWebcomic($f_webcomic, $f_page_number=1, $f_show_per_page=10) {
+    public function getComicListByWebcomic($f_webcomic, $f_page_number = 1, $f_show_per_page = 10)
+    {
         $t_comics = $this->loadClass('comics');
         $offset = (($f_page_number - 1) * $f_show_per_page);
         return $t_comics->getList(array('comic_stamp' => 'desc'), array('comic_webcomic' => $f_webcomic), $f_show_per_page, $offset);
     }
 
-    public function getWebcomicList ($fa_order, $fa_where) {
+    public function getWebcomicList($fa_order, $fa_where)
+    {
         $t_webcomics = $this->loadClass('webcomics');
         return $t_webcomics->getList($fa_order, $fa_where);
     }
-    
-    public function loadComic($f_where) {
+
+    public function loadComic($f_where)
+    {
         $t_comics = $this->loadClass('comics');
 
         $comic = $t_comics->load($f_where);
         return $comic;
     }
 
-    public function getLatestComic($f_webcomic = false) {
+    public function getLatestComic($f_webcomic = false)
+    {
         $t_comics = $this->loadClass('comics');
         $and = '';
         if (!empty($f_webcomic) && is_numeric($f_webcomic)) {
@@ -582,7 +613,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_comics->load(' comic_stamp <= NOW() ' . $and, array('comic_stamp' => 'desc'));
     }
 
-    public function validateAddComic($fa_post_data, $fa_imageFileData, $f_fileName, $f_member) {
+    public function validateAddComic($fa_post_data, $fa_imageFileData, $f_fileName, $f_member)
+    {
 
         // CHECK member has privilages
         // CHECK webcomic exists
@@ -617,7 +649,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $this->validateUploadComicImage($fa_imageFileData, $f_fileName, $f_member);
     }
 
-    public function validateUploadComicImage($fa_imageFileData, $f_fileName) {
+    public function validateUploadComicImage($fa_imageFileData, $f_fileName)
+    {
         $image_types = array('image/png', 'image/jpeg', 'image/pjpeg', 'image/gif', 'image/pjpg', 'image/jpg', 'image/bmp', 'image/tiff');
         $blacklist = array(".php", ".phtml", ".php3", ".php4", ".js", ".shtml", ".pl", ".py");
         if (array_search($fa_imageFileData[$f_fileName]['type'], $image_types) === false) {
@@ -645,7 +678,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function addComic($fa_post_data, $f_form_name, $f_member) {
+    public function addComic($fa_post_data, $f_form_name, $f_member)
+    {
         $t_comics = $this->loadClass('comics');
         $t_webcomics = $this->loadClass('webcomics');
         $t_members = $this->loadClass('members');
@@ -706,7 +740,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function updateComicTags($f_tag_string, $f_comic) {
+    public function updateComicTags($f_tag_string, $f_comic)
+    {
         $t_tags = $this->loadClass('tags');
 
         if (!$t_tags->deleteComicTags($f_comic)) {
@@ -729,7 +764,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function uploadComicImage($f_form_name, $f_comic, $f_filename=false) {
+    public function uploadComicImage($f_form_name, $f_comic, $f_filename = false)
+    {
         $t_comics = $this->loadClass('comics');
         $comic = $t_comics->load($f_comic);
 
@@ -746,7 +782,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_uh->upload_file_rename($f_form_name, $fileName);
     }
 
-    public function addCommentary($f_commentary_body, $f_comic, $f_member) {
+    public function addCommentary($f_commentary_body, $f_comic, $f_member)
+    {
         $t_comics = $this->loadClass('comics');
         $t_commentaries = $this->loadClass('commentaries');
         $t_members = $this->loadClass('members');
@@ -772,37 +809,43 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_commentaries->insert($new_commentary);
     }
 
-    public function getComicUpdates($f_limit=4, $f_filter_adult = false) {
+    public function getComicUpdates($f_limit = 4, $f_filter_adult = false)
+    {
         $t_comics = $this->loadClass('comics');
 
         return $t_comics->getLatestUpdates($f_limit, $f_filter_adult);
     }
 
-    public function getWebcomicCreditsByWebcomic($f_webcomic) {
+    public function getWebcomicCreditsByWebcomic($f_webcomic)
+    {
         $t_webcomic_credits = $this->loadClass('webcomic_credits');
 
         return $t_webcomic_credits->getList('webcomic_credit', array('wcc_webcomic' => $f_webcomic));
     }
 
-    public function getWebcomicCreditsByMember($f_member, $f_limit=false) {
+    public function getWebcomicCreditsByMember($f_member, $f_limit = false)
+    {
         $t_webcomic_credits = $this->loadClass('webcomic_credits');
 
         return $t_webcomic_credits->getList('webcomic_credit', array('wcc_member' => $f_member), $f_limit);
     }
 
-    public function getSimpleWebcomicCreditsByMember($f_member, $f_limit=false) {
+    public function getSimpleWebcomicCreditsByMember($f_member, $f_limit = false)
+    {
         $t_webcomic_credits = $this->loadClass('webcomic_credits');
 
         return $t_webcomic_credits->getWebcomicSimpleList('wc_title', 'wc_title', array('wcc_member' => $f_member, 'wcc_privileges' => 'true'), $f_limit);
     }
 
-    public function getAvatarsByWebcomic($f_webcomic) {
+    public function getAvatarsByWebcomic($f_webcomic)
+    {
         $t_avatars = $this->loadClass('avatars');
 
         return $t_avatars->getList('avatar_title', array('avatar_webcomic' => $f_webcomic));
     }
 
-    public function applyAvatar($f_avatar, $f_member) {
+    public function applyAvatar($f_avatar, $f_member)
+    {
         $t_members = $this->loadClass('members');
 
         $set['mem_avatar'] = $f_avatar;
@@ -811,62 +854,72 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_members->update($set, $where);
     }
 
-    public function loadTag($f_tag_unique) {
+    public function loadTag($f_tag_unique)
+    {
         $t_tags = $this->loadClass('tags');
 
         return $t_tags->load(array('tag_unique' => $f_tag_unique));
     }
 
-    public function getTagList() {
+    public function getTagList()
+    {
         $t_tags = $this->loadClass('tags');
 
         return $t_tags->getTagList();
     }
 
-    public function getTags($f_comic) {
+    public function getTags($f_comic)
+    {
         $t_tags = $this->loadClass('tags');
 
         return $t_tags->getList('tag_name', array('tag_comic' => $f_comic));
     }
 
-    public function countTagResults($f_tag_unique) {
+    public function countTagResults($f_tag_unique)
+    {
         $t_tags = $this->loadClass('tags');
 
         return $t_tags->getCount('tag', array('tag_unique' => $f_tag_unique));
     }
 
-    public function getComicsByTag($f_tag_unique, $f_page_number=1, $f_show_per_page=25) {
+    public function getComicsByTag($f_tag_unique, $f_page_number = 1, $f_show_per_page = 25)
+    {
         $t_tags = $this->loadClass('tags');
         $offset = (($f_page_number - 1) * $f_show_per_page);
 
         return $t_tags->getList(array('tag_comic' => 'desc'), array('tag_unique' => $f_tag_unique), $f_show_per_page, $offset);
     }
 
-    public function getCharacter($f_character) {
+    public function getCharacter($f_character)
+    {
         $t_character = $this->loadClass('characters');
 
         return $t_character->load($f_character);
     }
 
-    public function getCommentaries($f_comic) {
+    public function getCommentaries($f_comic)
+    {
         $t_commentaries = $this->loadClass('commentaries');
 
         return $t_commentaries->getList('commentary_stamp', array('commentary_comic' => $f_comic));
     }
 
-    public function getComments($f_id, $f_type='comics') {
+    public function getComments($f_id, $f_type = 'comics')
+    {
         $t_comments = $this->loadClass('comments');
 
         return $t_comments->getList(array('comment_stamp' => 'asc'), array('comment_id' => $f_id, 'comment_type' => $f_type));
     }
 
-    public function getComment($f_comment) {
+    public function getComment($f_comment)
+    {
         $t_comments = $this->loadClass('comments');
 
         return $t_comments->load($f_comment);
     }
 
-    public function validatePostComment($fa_comment, $f_type, $f_member) {
+    public function validatePostComment($fa_comment, $f_type, $f_member)
+    {
         $t_members = $this->loadClass('members');
         $t_comments = $this->loadClass('comments');
         //Check member exists
@@ -907,7 +960,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function postComment($fa_comment, $f_type, $f_member) {
+    public function postComment($fa_comment, $f_type, $f_member)
+    {
         $t_comments = $this->loadClass('comments');
 
         $new_comment['comment_member'] = $f_member;
@@ -928,27 +982,26 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function validateEditComment() {
+    public function validateEditComment() {}
 
-    }
+    public function editComment() {}
 
-    public function editComment() {
-
-    }
-
-    public function getChapterListByWebcomic($f_webcomic) {
+    public function getChapterListByWebcomic($f_webcomic)
+    {
         $t_chapters = $this->loadClass('chapters');
 
         return $t_chapters->getSimpleList('chapter_title', 'chapter_number', array('chapter_webcomic' => $f_webcomic));
     }
 
-    public function getCreatorComic($f_comic_number, $f_webcomic) {
+    public function getCreatorComic($f_comic_number, $f_webcomic)
+    {
 
         $t_com = $this->loadClass('comics');
         return $t_com->creatorLoad(array('comic_number' => $f_comic_number, 'comic_webcomic' => $f_webcomic));
     }
 
-    public function validateEditComic($fa_postData, $f_comic, $f_member) {
+    public function validateEditComic($fa_postData, $f_comic, $f_member)
+    {
         $t_comics = $this->loadClass('comics');
         $t_webcomics = $this->loadClass('webcomics');
         $t_members = $this->loadClass('members');
@@ -1018,7 +1071,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function editComic($fa_postData, $f_comic) {
+    public function editComic($fa_postData, $f_comic)
+    {
         $t_comics = $this->loadClass('comics');
 
         $comic = $t_comics->load($f_comic);
@@ -1047,7 +1101,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function reorderComic($f_current_number, $f_new_number) {
+    public function reorderComic($f_current_number, $f_new_number)
+    {
 
         /*
          * if ($f_current_number > $f_new_number) {
@@ -1067,7 +1122,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
          */
     }
 
-    public function validateRemoveSource($f_comic_source, $f_comic, $f_member) {
+    public function validateRemoveSource($f_comic_source, $f_comic, $f_member)
+    {
         $t_comics = $this->loadClass('comics');
         $t_comic_sources = $this->loadClass('comic_sources');
         $t_members = $this->loadClass('members');
@@ -1103,7 +1159,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function removeSource($f_comic_source, $f_comic) {
+    public function removeSource($f_comic_source, $f_comic)
+    {
         $t_comic_sources = $this->loadClass('comic_sources');
         $comic_source = $t_comic_sources->load(array('comic_source' => $f_comic_source, 'cs_comic' => $f_comic));
         if (empty($comic_source)) {
@@ -1114,43 +1171,50 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function getCategoryList() {
+    public function getCategoryList()
+    {
 
         $t_categories = $this->loadClass('categories');
         return $t_categories->getList('category_title');
     }
 
-    public function getSimpleCategoryList() {
+    public function getSimpleCategoryList()
+    {
 
         $t_categories = $this->loadClass('categories');
         return $t_categories->getSimpleList('category_title', 'category');
     }
 
-    public function loadCategoryByUnique($f_category_unique) {
+    public function loadCategoryByUnique($f_category_unique)
+    {
 
         $t_categories = $this->loadClass('categories');
         return $t_categories->load(array('category_unique' => $f_category_unique));
     }
 
-    public function getSimpleContentRatingList() {
+    public function getSimpleContentRatingList()
+    {
 
         $t_content_ratings = $this->loadClass('content_ratings');
         return $t_content_ratings->getSimpleList('cr_title', 'content_rating');
     }
 
-    public function getSimpleContentRatingClassificationList() {
+    public function getSimpleContentRatingClassificationList()
+    {
 
         $t_content_ratings = $this->loadClass('content_ratings');
         return $t_content_ratings->getSimpleList('cr_classification', 'content_rating');
     }
 
-    public function getSimpleLanguageList() {
+    public function getSimpleLanguageList()
+    {
 
         $t_languages = $this->loadClass('languages');
         return $t_languages->getSimpleList('language_title', 'language');
     }
 
-    public function validateRemoveTag($f_tag, $f_comic, $f_member) {
+    public function validateRemoveTag($f_tag, $f_comic, $f_member)
+    {
         $t_comics = $this->loadClass('comics');
         $t_tags = $this->loadClass('tags');
         $t_members = $this->loadClass('members');
@@ -1182,7 +1246,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function removeTag($f_tag, $f_comic) {
+    public function removeTag($f_tag, $f_comic)
+    {
         $t_tags = $this->loadClass('tags');
         $tag = $t_tags->load(array('tag' => $f_tag, 'tag_comic' => $f_comic));
         if (empty($tag)) {
@@ -1193,7 +1258,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function validateAddTag($f_tag, $f_comic, $f_member) {
+    public function validateAddTag($f_tag, $f_comic, $f_member)
+    {
         $t_comics = $this->loadClass('comics');
         $t_tags = $this->loadClass('tags');
         $t_members = $this->loadClass('members');
@@ -1226,7 +1292,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function addTag($f_tag, $f_comic) {
+    public function addTag($f_tag, $f_comic)
+    {
         $t_tags = $this->loadClass('tags');
 
         $new_tag['tag_comic'] = $f_comic;
@@ -1241,47 +1308,55 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function getLinksSimpleList() {
+    public function getLinksSimpleList()
+    {
         $t_links = $this->loadClass('links');
         return $t_links->getSimpleList('link_title', 'link_title');
     }
 
-    public function getSimpleSiteList($f_unique=true, $f_where=false, $f_column='site_title') {
+    public function getSimpleSiteList($f_unique = true, $f_where = false, $f_column = 'site_title')
+    {
         $t_sites = $this->loadClass('sites');
 
         return ($f_unique) ? $t_sites->getSimpleUniqueList($f_column, "lower(site_title)", $f_where) : $t_sites->getSimpleList($f_column, "lower(site_title)", $f_where);
     }
 
-    public function countSiteList($f_where=false) {
+    public function countSiteList($f_where = false)
+    {
         $t_sites = $this->loadClass('sites');
 
         return $t_sites->getCount('site', $f_where);
     }
 
-    public function getSiteList($f_where, $f_page_number=1, $f_show_per_page=25, $f_order=false) {
+    public function getSiteList($f_where, $f_page_number = 1, $f_show_per_page = 25, $f_order = false)
+    {
         $t_sites = $this->loadClass('sites');
         $offset = ($f_page_number && $f_show_per_page) ? (($f_page_number - 1) * $f_show_per_page) : false;
-        $order = ($f_order) ? $f_order : "lower(site_title)" ;
+        $order = ($f_order) ? $f_order : "lower(site_title)";
         return $t_sites->getList($order, $f_where, $f_show_per_page, $offset);
     }
 
-    public function getSiteReferences($f_site) {
+    public function getSiteReferences($f_site)
+    {
         $t_sites = $this->loadClass('sites');
         return $t_sites->getReferenceList($f_site);
     }
 
-    public function getSiteExitList($f_limit=false, $f_start_date=false, $f_end_date=false) {
+    public function getSiteExitList($f_limit = false, $f_start_date = false, $f_end_date = false)
+    {
         $t_site_exits = $this->loadClass('site_exits');
         return $t_site_exits->getSiteExits($f_limit, $f_start_date, $f_end_date);
     }
 
-    public function getSiteChildren($f_site) {
+    public function getSiteChildren($f_site)
+    {
         $t_sites = $this->loadClass('sites');
         $where['site_parent'] = $f_site;
         return $t_sites->getList('site_title', $where);
     }
 
-    public function loadSite($f_site_unique_id, $f_as_unique=true) {
+    public function loadSite($f_site_unique_id, $f_as_unique = true)
+    {
         $t_sites = $this->loadClass('sites');
         $t_site_credits = $this->loadClass('site_credits');
         $t_site_exits = $this->loadClass('site_exits');
@@ -1336,13 +1411,14 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $site;
     }
 
-    public function getSitePageNumber($f_site_unique, $f_show_per_page, $f_where=false) {
+    public function getSitePageNumber($f_site_unique, $f_show_per_page, $f_where = false)
+    {
         if ($f_where) {
             $where = 'AND';
             if (is_array($f_where)) {
-                $where.= implode(' AND ', $f_where);
+                $where .= implode(' AND ', $f_where);
             } else {
-                $where.= $f_where;
+                $where .= $f_where;
             }
         }
         $q = "SELECT (COUNT(site)/" . $f_show_per_page . " +1) as page_number FROM sites WHERE site_unique < '" . $f_site_unique . "' " . $where . " ;";
@@ -1350,14 +1426,16 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $results['page_number'];
     }
 
-    public function getLetterPageNumbers($f_letter, $f_show_per_page, $f_where=false) {
+    public function getLetterPageNumbers($f_letter, $f_show_per_page, $f_where = false)
+    {
         $t_sites = $this->loadClass('sites');
 
 
         return $t_sites->getLetterPageNumbers($f_letter, $f_show_per_page, $f_where);
     }
 
-    public function validateAddSite($fa_post_data, $fa_imageFileData, $f_fileName, $f_member) {
+    public function validateAddSite($fa_post_data, $fa_imageFileData, $f_fileName, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_members = $this->loadClass('members');
 
@@ -1390,7 +1468,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $this->validateUploadSiteIcon($fa_imageFileData, $f_fileName, $f_member);
     }
 
-    public function addSite($fa_post_data, $f_form_name) {
+    public function addSite($fa_post_data, $f_form_name)
+    {
         $t_sites = $this->loadClass('sites');
 
         $new_site['site_title'] = strip_tags(trim($fa_post_data['site_title']));
@@ -1469,7 +1548,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function addTwitterAccountLink($f_site, $f_twitter_account) {
+    public function addTwitterAccountLink($f_site, $f_twitter_account)
+    {
         $t_links = $this->loadClass('links');
         $t_site_links = $this->loadClass('site_links');
 
@@ -1491,11 +1571,10 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function addFacebookAccountLink() {
+    public function addFacebookAccountLink() {}
 
-    }
-
-    public function convertTwitters() {
+    public function convertTwitters()
+    {
         $t_sites = $this->loadClass('sites');
         $t_links = $this->loadClass('links');
         $t_site_links = $this->loadClass('site_links');
@@ -1525,7 +1604,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function validateEditSiteDetails($fa_post_data, $f_site, $f_member) {
+    public function validateEditSiteDetails($fa_post_data, $f_site, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_members = $this->loadClass('members');
 
@@ -1546,7 +1626,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function updateSiteDetails($fa_post_data, $f_site) {
+    public function updateSiteDetails($fa_post_data, $f_site)
+    {
         $t_sites = $this->loadClass('sites');
         if (empty($f_site) || !($t_sites->load($f_site))) {
             $this->addStatusMessage('Please select a valid Site');
@@ -1628,7 +1709,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function updateSiteTags($f_tag_string, $f_site) {
+    public function updateSiteTags($f_tag_string, $f_site)
+    {
         $t_site_tags = $this->loadClass('site_tags');
 
         if (!$t_site_tags->deleteSiteTags($f_site)) {
@@ -1651,12 +1733,14 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function loadSiteTag($f_tag_unique) {
+    public function loadSiteTag($f_tag_unique)
+    {
         $t_site_tags = $this->loadClass('site_tags');
         return $t_site_tags->load(array('st_unique' => $f_tag_unique));
     }
 
-    public function countSitesByTag($f_tag_unique, $f_where=false) {
+    public function countSitesByTag($f_tag_unique, $f_where = false)
+    {
         $t_site_tags = $this->loadClass('site_tags');
         $where = array('st_unique' => $f_tag_unique);
         if (!empty($f_where)) {
@@ -1665,7 +1749,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_site_tags->getCount('site_tag', $where);
     }
 
-    public function getSitesByTag($f_tag_unique, $f_where=false, $f_page_number=1, $f_show_per_page=25) {
+    public function getSitesByTag($f_tag_unique, $f_where = false, $f_page_number = 1, $f_show_per_page = 25)
+    {
         $t_site_tags = $this->loadClass('site_tags');
         $offset = (($f_page_number - 1) * $f_show_per_page);
         $where = array('st_unique' => $f_tag_unique);
@@ -1676,13 +1761,15 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_site_tags->getList(array('st_site' => 'desc'), $where, $f_show_per_page, $offset);
     }
 
-    public function updateSiteTextSearch($f_site=false) {
+    public function updateSiteTextSearch($f_site = false)
+    {
         $t_sites = $this->loadClass('sites');
 
         return $t_sites->updateTextSearch($f_site);
     }
 
-    public function countSitesBySearch($f_query) {
+    public function countSitesBySearch($f_query)
+    {
         if (empty($f_query)) {
             return false;
         }
@@ -1691,7 +1778,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_sites->getCount('site', $where);
     }
 
-    public function getSitesRandomNew($f_recent_show, $f_hide_adult=false) {
+    public function getSitesRandomNew($f_recent_show, $f_hide_adult = false)
+    {
         $t_sites = new sites();
         $where = false;
         if ($f_hide_adult) {
@@ -1700,7 +1788,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_sites->getList(array('site_added' => 'desc'), $where, $f_recent_show);
     }
 
-    public function getSitesBySearch($f_query, $f_page_number=1, $f_show_per_page=25) {
+    public function getSitesBySearch($f_query, $f_page_number = 1, $f_show_per_page = 25)
+    {
         if (empty($f_query)) {
             return false;
         }
@@ -1712,7 +1801,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_sites->getSearchList($order, $f_query, $where, $f_show_per_page, $offset);
     }
 
-    public function validateUploadSiteIcon($fa_imageFileData, $f_fileName, $f_member) {
+    public function validateUploadSiteIcon($fa_imageFileData, $f_fileName, $f_member)
+    {
         $t_members = $this->loadClass('members');
         $t_sites = $this->loadClass('sites');
 
@@ -1730,7 +1820,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $this->validateSiteIconImage($fa_imageFileData, $f_fileName);
     }
 
-    public function validateSiteIconImage($fa_imageFileData, $f_fileName) {
+    public function validateSiteIconImage($fa_imageFileData, $f_fileName)
+    {
         $image_types = array('image/png');
         $blacklist = array(".php", ".phtml", ".php3", ".php4", ".js", ".shtml", ".pl", ".py");
         if (array_search($fa_imageFileData[$f_fileName]['type'], $image_types) === false) {
@@ -1762,7 +1853,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function uploadSiteIcon($f_form_name, $f_site) {
+    public function uploadSiteIcon($f_form_name, $f_site)
+    {
         $t_sites = $this->loadClass('sites');
         $site = $t_sites->load($f_site);
 
@@ -1777,7 +1869,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_uh->upload_file_rename($f_form_name, $fileName);
     }
 
-    public function validateUploadImage($fa_imageFileData, $fa_postData, $f_fileName, $f_webcomic, $f_member) {
+    public function validateUploadImage($fa_imageFileData, $fa_postData, $f_fileName, $f_webcomic, $f_member)
+    {
         $t_members = $this->loadClass('members');
         $t_webcomics = $this->loadClass('webcomics');
 
@@ -1799,8 +1892,9 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $this->validateImage($fa_imageFileData, $fa_postData, $f_fileName);
     }
 
-//TODO Finish Validate IMage
-    public function validateImage($fa_imageFileData, $fa_postData, $f_fileName) {
+    //TODO Finish Validate IMage
+    public function validateImage($fa_imageFileData, $fa_postData, $f_fileName)
+    {
         $image_types = array('image/jpeg', 'image/gif', 'image/png', 'image/tiff');
         $blacklist = array(".php", ".phtml", ".php3", ".php4", ".js", ".shtml", ".pl", ".py");
         $sizes = explode('x', $fa_postData['size']);
@@ -1834,8 +1928,9 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-//TODO Finish Upload IMage
-    public function moveImage($f_form_name, $f_webcomic_encoded, $f_sizename) {
+    //TODO Finish Upload IMage
+    public function moveImage($f_form_name, $f_webcomic_encoded, $f_sizename)
+    {
         $up_dir = $_SERVER['DOCUMENT_ROOT'] . '/images/shows/' . $f_webcomic_encoded . '/';
         $file = $up_dir . $f_sizename . '.png';
         $t_uh = new UploadHandler($f_form_name, 5000000, false, $up_dir);
@@ -1849,13 +1944,15 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         $t_uh->upload_file_rename($f_form_name, $f_sizename);
     }
 
-    public function checkForUnreadMessages($f_member) {
+    public function checkForUnreadMessages($f_member)
+    {
         $t_con = $this->loadClass('conversations');
         return $t_con->checkForUnread($f_member);
     }
 
     // TODO Validate message
-    public function validateReply($f_message, $f_conversation, $f_member) {
+    public function validateReply($f_message, $f_conversation, $f_member)
+    {
 
         // TODO Ensure not blacklisted
         //Ensure not EMPTY OR too large
@@ -1870,7 +1967,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return ($this->checkStatusMessage()) ? false : true;
     }
 
-    public function sendReply($f_message, $f_conversation, $f_member) {
+    public function sendReply($f_message, $f_conversation, $f_member)
+    {
         $t_con = $this->loadClass('conversations');
         $t_mes = $this->loadClass('messages');
         if (!$t_con->load($f_conversation) || $t_con->checkConversation($f_conversation, $f_member)) {
@@ -1891,7 +1989,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
     }
 
     // TODO Validate $this->loadClass('message
-    public function validateNewMessage($f_sender, $f_recipient, $f_subject, $f_message) {
+    public function validateNewMessage($f_sender, $f_recipient, $f_subject, $f_message)
+    {
         $t_mem = $this->loadClass('members');
         //TODO Check Not Blacklisted
         //TODO Check If Match OR paid 100 credits
@@ -1933,7 +2032,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function sendNewMessage($fa_message_details, $f_sender, $f_recipient) {
+    public function sendNewMessage($fa_message_details, $f_sender, $f_recipient)
+    {
         //Strip tags str_tags(htmlspecialchars());
         //Create Convo
         $t_con = $this->loadClass('conversations');
@@ -1966,23 +2066,27 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function countConversations($f_member) {
+    public function countConversations($f_member)
+    {
         $t_con = $this->loadClass('conversations');
         return $t_con->countConversations($f_member);
     }
 
-    public function getConversations($f_member, $f_page_number, $f_show_per_page) {
+    public function getConversations($f_member, $f_page_number, $f_show_per_page)
+    {
         $t_con = $this->loadClass('conversations');
 
         return $t_con->getConversations($f_member, $f_page_number, $f_show_per_page);
     }
 
-    public function readConversation($f_conversation, $f_member) {
+    public function readConversation($f_conversation, $f_member)
+    {
         $t_con = $this->loadClass('conversations');
         return $t_con->readConversation($f_conversation, $f_member);
     }
 
-    public function validateDeleteConversations($fa_conversations, $f_member) {
+    public function validateDeleteConversations($fa_conversations, $f_member)
+    {
         // Check conversations.
         $t_con = $this->loadClass('conversations');
         foreach ($fa_conversations as $conversation) {
@@ -1993,7 +2097,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function deleteConversations($fa_conversations, $f_member) {
+    public function deleteConversations($fa_conversations, $f_member)
+    {
         $t_con = $this->loadClass('conversations');
         $delcount = 0;
         foreach ($fa_conversations as $conversation) {
@@ -2007,7 +2112,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function encodeString($string, $replace='-', $lower=true) {
+    public function encodeString($string, $replace = '-', $lower = true)
+    {
         $text = preg_replace("[\-$]", '', preg_replace("[\W+]", $replace, $string));
         if ($lower) {
             return strtolower($text);
@@ -2015,14 +2121,15 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $text;
     }
 
-    public function exitToSite($f_site_unqiue, $f_member=false, $f_ad=false) {
+    public function exitToSite($f_site_unqiue, $f_member = false, $f_ad = false)
+    {
         $t_exits = $this->loadClass('site_exits');
         $t_sites = $this->loadClass('sites');
 
         $site = $t_sites->load(array('site_unique' => $f_site_unqiue));
         $exit['se_site'] = $site['site'];
         $exit['se_referrer'] = $_SERVER['HTTP_REFERER'];
-        
+
         if ($f_ad) {
             $exit['se_notes'] = 'ad';
         }
@@ -2038,27 +2145,32 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         header('location: ' . $site['site_hidden_url']);
     }
 
-    public function getTopSiteExits($f_limit) {
+    public function getTopSiteExits($f_limit)
+    {
         $t_sites = $this->loadClass('sites');
         $t_exits = $this->loadClass('site_exits');
     }
 
-    public function getSimpleAwardList() {
+    public function getSimpleAwardList()
+    {
         $t_awards = $this->loadClass('awards');
         return $t_awards->getSimpleList('award_title', 'award_title');
     }
 
-    public function getAwardList($f_where=false) {
+    public function getAwardList($f_where = false)
+    {
         $t_awards = $this->loadClass('awards');
         return $t_awards->getList('award_title', $f_where);
     }
 
-    public function loadAward($f_award=false) {
+    public function loadAward($f_award = false)
+    {
         $t_awards = $this->loadClass('awards');
         return $t_awards->load($f_award);
     }
 
-    public function validateGiveAward($f_site_unique, $f_award, $_comments, $f_member) {
+    public function validateGiveAward($f_site_unique, $f_award, $_comments, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_awards = $this->loadClass('awards');
         $t_site_awards = $this->loadClass('site_awards');
@@ -2087,10 +2199,11 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
             return false;
         }
 
-        return!$this->checkStatusMessage;
+        return !$this->checkStatusMessage;
     }
 
-    public function checkHasAward($f_site, $f_award, $f_member) {
+    public function checkHasAward($f_site, $f_award, $f_member)
+    {
         $t_site_awards = $this->loadClass('site_awards');
         $where['sa_site'] = $f_site;
         $where['sa_award'] = $f_award;
@@ -2098,7 +2211,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return ($t_site_awards->load($where)) ? true : false;
     }
 
-    public function giveAward($f_site_unique, $f_award, $f_comments, $f_member) {
+    public function giveAward($f_site_unique, $f_award, $f_comments, $f_member)
+    {
         $t_site_awards = $this->loadClass('site_awards');
         $t_sites = $this->loadClass('sites');
         $site = $t_sites->load(array('site_unique' => $f_site_unique));
@@ -2117,7 +2231,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function validateRemoveSiteAward($f_site_award, $f_site_unique, $f_member) {
+    public function validateRemoveSiteAward($f_site_award, $f_site_unique, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_site_awards = $this->loadClass('site_awards');
         $t_members = $this->loadClass('members');
@@ -2145,10 +2260,11 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
             $this->addStatusMessage('Award does not belong to this site.');
             return false;
         }
-        return!$this->checkStatusMessage;
+        return !$this->checkStatusMessage;
     }
 
-    public function removeSiteAward($f_site_award) {
+    public function removeSiteAward($f_site_award)
+    {
         $t_site_awards = $this->loadClass('site_awards');
 
         $site_award = $t_site_awards->load($f_site_award);
@@ -2161,7 +2277,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return $t_site_awards->removeAward($site_award['site_award']);
     }
 
-    public function validateAssignSiteCredit($fa_post_array, $f_site_unique) {
+    public function validateAssignSiteCredit($fa_post_array, $f_site_unique)
+    {
         $t_sites = $this->loadClass('sites');
         $t_members = $this->loadClass('members');
 
@@ -2178,10 +2295,11 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
             $this->addStatusMessage('Invalid Site.');
             return false;
         }
-        return!$this->checkStatusMessage;
+        return !$this->checkStatusMessage;
     }
 
-    public function assignSiteCredit($fa_post_array, $f_site_unique) {
+    public function assignSiteCredit($fa_post_array, $f_site_unique)
+    {
         $t_site_credits = $this->loadClass('site_credits');
         $t_members = $this->loadClass('members');
         $t_sites = $this->loadClass('sites');
@@ -2213,7 +2331,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return false;
     }
 
-    public function validateRemoveSiteCredit($f_site_credit, $f_site_unique, $f_member) {
+    public function validateRemoveSiteCredit($f_site_credit, $f_site_unique, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_site_credits = $this->loadClass('site_credits');
         $t_members = $this->loadClass('members');
@@ -2241,10 +2360,11 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
             $this->addStatusMessage('Credit does not belong to this site.');
             return false;
         }
-        return!$this->checkStatusMessage;
+        return !$this->checkStatusMessage;
     }
 
-    public function removeSiteCredit($f_site_credit) {
+    public function removeSiteCredit($f_site_credit)
+    {
         $t_site_credits = $this->loadClass('site_credits');
 
         $site_credit = $t_site_credits->load($f_site_credit);
@@ -2263,13 +2383,15 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function checkIfFavoriteSite($f_site, $f_member) {
+    public function checkIfFavoriteSite($f_site, $f_member)
+    {
         $t_favorites = $this->loadClass('favorites');
 
         return ($t_favorites->load(array('favorite_member' => $f_member, 'favorite_site' => $f_site))) ? true : false;
     }
 
-    public function validateAddSiteToFavorites($f_site, $f_member) {
+    public function validateAddSiteToFavorites($f_site, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_favorites = $this->loadClass('favorites');
         $t_members = $this->loadClass('members');
@@ -2286,7 +2408,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function addSiteToFavorites($f_site, $f_member) {
+    public function addSiteToFavorites($f_site, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_favorites = $this->loadClass('favorites');
         $t_members = $this->loadClass('members');
@@ -2302,7 +2425,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         }
     }
 
-    public function validateRemoveSiteFromFavorites($f_site, $f_member) {
+    public function validateRemoveSiteFromFavorites($f_site, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_favorites = $this->loadClass('favorites');
         $t_members = $this->loadClass('members');
@@ -2325,7 +2449,8 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
         return true;
     }
 
-    public function removeSiteFromFavorites($f_site, $f_member) {
+    public function removeSiteFromFavorites($f_site, $f_member)
+    {
         $t_sites = $this->loadClass('sites');
         $t_favorites = $this->loadClass('favorites');
         $t_members = $this->loadClass('members');
@@ -2345,7 +2470,4 @@ class WebcomicTV_Network_SiteManager extends SiteManager {
             return false;
         }
     }
-
 }
-
-?>
