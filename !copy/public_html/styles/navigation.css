@@ -1,0 +1,45 @@
+#navigation {margin: 0 0 40px 0; clear: right; float: right; background: #FFFFFF;
+             font-size: 14px;
+}
+
+#navigation a {}
+
+#navigation a:hover {}
+#navigation ul { /* all lists */
+                 padding: 0;
+                 margin: 0;
+                 list-style: none;
+}
+
+#navigation li { /* all list items */
+                 float: left;
+                 position: relative;
+}
+
+#navigation li ul { /* second-level lists */
+                    background: #EEEEEE;
+                    display: none;
+                    position: absolute;
+                    top: 1em;
+                    left: 0;
+}
+
+#navigation li>ul { /* to override top and left in browsers other than IE, which will position to the top right of the containing li, rather than bottom left */
+                    top: auto;
+                    left: -10px;
+}
+#navigation li:hover ul, #navigation li.over ul { /* lists nested under hovered list items */
+                                                  display: block;
+
+
+}
+
+
+#navigation li ul li {padding: 0;
+                      border-right: none;}
+#navigation li:hover ul a, #navigation li.over ul a {
+    display: block;
+}
+
+#navigation li:hover ul a:hover, #navigation li.over ul a:hover {
+}

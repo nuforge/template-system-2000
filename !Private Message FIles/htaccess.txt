@@ -1,0 +1,22 @@
+
+RewriteRule ^/*messages/([0-9]+)[.htm[l]?]?$ index.php?plugin=plugin_messages&pg=message&message=$1 [L]
+RewriteRule ^/*messages/$ index.php?plugin=plugin_messages&pg=index [L]
+RewriteRule ^/*messages/archive[/]?$ index.php?plugin=plugin_messages&pg=index&status=archived [L]
+RewriteRule ^/*messages/archive/p([0-9]+)$ index.php?plugin=plugin_messages&pg=index&status=archived&page=$1 [L]
+RewriteRule ^/*messages/inbox[/]?$ index.php?plugin=plugin_messages&pg=index [L]
+RewriteRule ^/*messages/inbox/p([0-9]+)$ index.php?plugin=plugin_messages&pg=index&page=$1 [L]
+RewriteRule ^/*messages/favorite[/]?$ index.php?plugin=plugin_messages&pg=index&status=favorite [L]
+RewriteRule ^/*messages/favorite/p([0-9]+)$ index.php?plugin=plugin_messages&pg=index&status=favorite&page=$1 [L]
+RewriteRule ^/*messages/read[/]?$ index.php?plugin=plugin_messages&pg=index&status=read [L]
+RewriteRule ^/*messages/read/p([0-9]+)$ index.php?plugin=plugin_messages&pg=index&status=read&page=$1 [L]
+RewriteRule ^/*messages/unread[/]?$ index.php?plugin=plugin_messages&pg=index&status=unread [L]
+RewriteRule ^/*messages/unread/p([0-9]+)$ index.php?plugin=plugin_messages&pg=index&status=unread&page=$1 [L]
+RewriteRule ^/*messages/sent[/]?$ index.php?plugin=plugin_messages&pg=index&status=sent [L]
+RewriteRule ^/*messages/sent/p([0-9]+)$ index.php?plugin=plugin_messages&pg=index&status=sent&page=$1 [L]
+RewriteRule ^/*messages/([0-9]+)/reply.html?$ index.php?plugin=plugin_messages&pg=reply&message=$1 [L]
+RewriteRule ^/*messages/p([0-9]+)[.htm[l]?]?$ index.php?plugin=plugin_messages&pg=messages&page=$1 [L]
+
+RewriteCond %{QUERY_STRING} ^m=([A-Za-z0-9_]+)$
+RewriteRule ^/*messages/compose.html$ index.php?plugin=plugin_messages&pg=compose&username=%1 [L]
+
+RewriteRule ^/*messages/([A-Za-z0-9_-]+).htm[l]?$ index.php?plugin=plugin_messages&pg=$1 [L]

@@ -1,0 +1,25 @@
+RewriteEngine ON
+ErrorDocument 404 /index.html
+
+php_flag magic_quotes_gpc Off
+
+RewriteCond %{HTTP_HOST} ^_site.com [NC]
+RewriteRule ^(.*)$ http://www._site.com/$1 [L,R=301]
+
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?_site.com/.*$ [NC]
+RewriteRule ^/*reset-password/([A-Za-z0-9_-]+)$ index.php?&template_page=reset&code=$1 [L]
+
+RewriteRule ^/*images/captcha.png$ index.php?template_page=captcha [L]
+
+RewriteRule ^/*members/$ index.php?template_plugin=plugin_members&template_page=index [L]
+RewriteRule ^/*members/([A-Za-z0-9_-]+).htm[l]?$ index.php?template_plugin=plugin_members&template_page=$1 [L]
+
+
+RewriteCond %{QUERY_STRING} ^q=([A-Za-z0-9_]+)$
+RewriteRule ^/*search.html$ index.php?template_page=search&q=%1 [L]
+
+RewriteCond %{QUERY_STRING} ^ref=([A-Za-z0-9_-]+)$
+RewriteRule ^/*([A-Za-z0-9_-]+).html$ index.php?template_page=$1&ref=%1 [L]
+
+RewriteRule ^/*([A-Za-z0-9_-]+).html$ index.php?template_page=$1 [L]

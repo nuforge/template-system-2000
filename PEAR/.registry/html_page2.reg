@@ -1,0 +1,61 @@
+a:22:{s:7:"attribs";a:6:{s:15:"packagerversion";s:11:"1.8.0alpha1";s:7:"version";s:3:"2.0";s:5:"xmlns";s:35:"http://pear.php.net/dtd/package-2.0";s:11:"xmlns:tasks";s:33:"http://pear.php.net/dtd/tasks-1.0";s:9:"xmlns:xsi";s:41:"http://www.w3.org/2001/XMLSchema-instance";s:18:"xsi:schemaLocation";s:147:"http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd";}s:4:"name";s:10:"HTML_Page2";s:7:"channel";s:12:"pear.php.net";s:7:"summary";s:59:"PEAR::HTML_Page2 is a base class for XHTML page generation.";s:11:"description";s:758:"The PEAR::HTML_Page2 package provides a simple interface for generating an XHTML compliant page.
+* supports virtually all HTML doctypes, from HTML 2.0 through XHTML 1.1 and XHTML Basic 1.0
+  plus preliminary support for XHTML 2.0
+* namespace support
+* global language declaration for the document
+* line ending styles
+* full META tag support
+* support for stylesheet declaration in the head section
+* support for script declaration in the head section
+* support for linked stylesheets and scripts
+* full support for header link tags
+* body can be a string, object with toHtml or toString methods or an array (can be combined)
+
+Ideas for use:
+* Use to validate the output of a class for XHTML compliance
+* Quick prototyping using PEAR packages is now a breeze";s:4:"lead";a:4:{s:4:"name";s:14:"Klaus Guenther";s:4:"user";s:7:"thesaur";s:5:"email";s:22:"klaus@capitalfocus.org";s:6:"active";s:3:"yes";}s:4:"date";s:10:"2009-01-30";s:4:"time";s:8:"01:42:05";s:7:"version";a:2:{s:7:"release";s:9:"0.6.0beta";s:3:"api";s:9:"0.6.0beta";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:7:"license";s:15:"PHP License 3.0";s:5:"notes";s:351:"Frameset support(?)
+Bug #1913 Notice error generated when array index not set 	thesaur
+Bug #1969 $strHtml not initialized if not using frameset doctype variant 	thesaur
+Bug #2054 4.3.3 	Linux 	page content is copied unnecessarily 	iwarner
+Bug #3259 Remove control-M's 	iwarner
+Bug #8859 Win XP 	BASE tag 	iwarner
+Request #15512 package2.0 xml doconnor";s:8:"contents";a:1:{s:3:"dir";a:2:{s:7:"attribs";a:2:{s:14:"baseinstalldir";s:4:"HTML";s:4:"name";s:1:"/";}s:4:"file";a:9:{i:0;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"5fb56d9a11c1e0d83305bcd2b2ab2f11";s:4:"name";s:26:"examples/Page2_Complex.php";s:4:"role";s:3:"doc";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:1;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"55b0a19a5fc028826211d39967bbe8e4";s:4:"name";s:27:"examples/Page2_Frameset.php";s:4:"role";s:3:"doc";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:2;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"19b0d99cddaca3d3aa7dfd298f744794";s:4:"name";s:28:"examples/Page2_NoDoctype.php";s:4:"role";s:3:"doc";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:3;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"4e3a735f881528f8e4a7db43cb14b99b";s:4:"name";s:25:"examples/Page2_Simple.php";s:4:"role";s:3:"doc";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:4;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"2b368d2a951d2b65b2170f2cbf4ef68e";s:4:"name";s:18:"Page2/Doctypes.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:5;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"f73ce88828a353b352015f004f1b4356";s:4:"name";s:18:"Page2/Frameset.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:6;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"5529a0259073e004da68144ef1ee04dc";s:4:"name";s:20:"Page2/Namespaces.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:7;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"c885dc67131e4667a08506d480690614";s:4:"name";s:24:"Page2/Frameset/Frame.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}i:8;a:2:{s:7:"attribs";a:4:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"1b86211509b4b7e35f8e6e0f50656684";s:4:"name";s:9:"Page2.php";s:4:"role";s:3:"php";}s:13:"tasks:replace";a:1:{s:7:"attribs";a:3:{s:4:"from";s:17:"@package_version@";s:2:"to";s:7:"version";s:4:"type";s:12:"package-info";}}}}}}s:12:"dependencies";a:1:{s:8:"required";a:3:{s:3:"php";a:1:{s:3:"min";s:5:"4.3.0";}s:13:"pearinstaller";a:1:{s:3:"min";s:5:"1.5.4";}s:7:"package";a:3:{s:4:"name";s:11:"HTML_Common";s:7:"channel";s:12:"pear.php.net";s:3:"min";s:3:"1.2";}}}s:10:"phprelease";s:0:"";s:9:"changelog";a:1:{s:7:"release";a:2:{i:0;a:5:{s:7:"version";a:2:{s:7:"release";s:9:"0.5.0beta";s:3:"api";s:9:"0.5.0beta";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2003-06-07";s:7:"license";s:15:"PHP License 3.0";s:5:"notes";s:1119:"This release is completely XHTML compliant, and has some great features:
+* Line ending style
+* Full charset support
+* Doctype definitions
+* Namespace definitions
+* Mime encoding declaration
+* Global document language
+* Full META tag support, including "http-equiv"
+* Suport for stylesheet and script declarations in the head section
+* Support for linked stylesheets and scripts (including CSS 2.0 media specific definitions)
+* Can output directly to a file
+
+Note: This release does not support framesets.
+
+New features:
+* HTML 4.0 doctype support
+* #814 (Feature request: prependBodyContent)
+* Full link tag support (including shortcut for adding favorites icon) (Jason Giangrande)
+* addBodyContent now also takes an additional parameter
+* Basic support for multiple script and style generation (#698)
+
+Bugfixes (since HTML_Page 2.0.0.RC2)
+* #800 (Output "Object" prior to HTML if doctype is unknown)
+* #950 (fixes reiterative recursion when generating string)
+* #951 (unset META tag was not possible; now use unsetMetaData)
+* Fixed meta tag, title order for pre-XHTML compatibility
+
+# major inline documentation update";}i:1;a:5:{s:7:"version";a:2:{s:7:"release";s:9:"0.6.0beta";s:3:"api";s:9:"0.6.0beta";}s:9:"stability";a:2:{s:7:"release";s:4:"beta";s:3:"api";s:4:"beta";}s:4:"date";s:10:"2009-01-30";s:7:"license";s:15:"PHP License 3.0";s:5:"notes";s:351:"Frameset support(?)
+Bug #1913 Notice error generated when array index not set 	thesaur
+Bug #1969 $strHtml not initialized if not using frameset doctype variant 	thesaur
+Bug #2054 4.3.3 	Linux 	page content is copied unnecessarily 	iwarner
+Bug #3259 Remove control-M's 	iwarner
+Bug #8859 Win XP 	BASE tag 	iwarner
+Request #15512 package2.0 xml doconnor";}}}s:8:"filelist";a:9:{s:26:"examples/Page2_Complex.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"5fb56d9a11c1e0d83305bcd2b2ab2f11";s:4:"name";s:26:"examples/Page2_Complex.php";s:4:"role";s:3:"doc";s:12:"installed_as";s:60:"/usr/local/lib/php/doc/HTML_Page2/examples/Page2_Complex.php";}s:27:"examples/Page2_Frameset.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"55b0a19a5fc028826211d39967bbe8e4";s:4:"name";s:27:"examples/Page2_Frameset.php";s:4:"role";s:3:"doc";s:12:"installed_as";s:61:"/usr/local/lib/php/doc/HTML_Page2/examples/Page2_Frameset.php";}s:28:"examples/Page2_NoDoctype.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"19b0d99cddaca3d3aa7dfd298f744794";s:4:"name";s:28:"examples/Page2_NoDoctype.php";s:4:"role";s:3:"doc";s:12:"installed_as";s:62:"/usr/local/lib/php/doc/HTML_Page2/examples/Page2_NoDoctype.php";}s:25:"examples/Page2_Simple.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"4e3a735f881528f8e4a7db43cb14b99b";s:4:"name";s:25:"examples/Page2_Simple.php";s:4:"role";s:3:"doc";s:12:"installed_as";s:59:"/usr/local/lib/php/doc/HTML_Page2/examples/Page2_Simple.php";}s:18:"Page2/Doctypes.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"2b368d2a951d2b65b2170f2cbf4ef68e";s:4:"name";s:18:"Page2/Doctypes.php";s:4:"role";s:3:"php";s:12:"installed_as";s:42:"/usr/local/lib/php/HTML/Page2/Doctypes.php";}s:18:"Page2/Frameset.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"f73ce88828a353b352015f004f1b4356";s:4:"name";s:18:"Page2/Frameset.php";s:4:"role";s:3:"php";s:12:"installed_as";s:42:"/usr/local/lib/php/HTML/Page2/Frameset.php";}s:20:"Page2/Namespaces.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"5529a0259073e004da68144ef1ee04dc";s:4:"name";s:20:"Page2/Namespaces.php";s:4:"role";s:3:"php";s:12:"installed_as";s:44:"/usr/local/lib/php/HTML/Page2/Namespaces.php";}s:24:"Page2/Frameset/Frame.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"c885dc67131e4667a08506d480690614";s:4:"name";s:24:"Page2/Frameset/Frame.php";s:4:"role";s:3:"php";s:12:"installed_as";s:48:"/usr/local/lib/php/HTML/Page2/Frameset/Frame.php";}s:9:"Page2.php";a:5:{s:14:"baseinstalldir";s:4:"HTML";s:6:"md5sum";s:32:"1b86211509b4b7e35f8e6e0f50656684";s:4:"name";s:9:"Page2.php";s:4:"role";s:3:"php";s:12:"installed_as";s:33:"/usr/local/lib/php/HTML/Page2.php";}}s:12:"_lastversion";N;s:7:"dirtree";a:5:{s:42:"/usr/local/lib/php/doc/HTML_Page2/examples";b:1;s:33:"/usr/local/lib/php/doc/HTML_Page2";b:1;s:29:"/usr/local/lib/php/HTML/Page2";b:1;s:23:"/usr/local/lib/php/HTML";b:1;s:38:"/usr/local/lib/php/HTML/Page2/Frameset";b:1;}s:3:"old";a:7:{s:7:"version";s:9:"0.6.0beta";s:12:"release_date";s:10:"2009-01-30";s:13:"release_state";s:4:"beta";s:15:"release_license";s:15:"PHP License 3.0";s:13:"release_notes";s:351:"Frameset support(?)
+Bug #1913 Notice error generated when array index not set 	thesaur
+Bug #1969 $strHtml not initialized if not using frameset doctype variant 	thesaur
+Bug #2054 4.3.3 	Linux 	page content is copied unnecessarily 	iwarner
+Bug #3259 Remove control-M's 	iwarner
+Bug #8859 Win XP 	BASE tag 	iwarner
+Request #15512 package2.0 xml doconnor";s:12:"release_deps";a:3:{i:0;a:4:{s:4:"type";s:3:"php";s:3:"rel";s:2:"ge";s:7:"version";s:5:"4.3.0";s:8:"optional";s:2:"no";}i:1;a:6:{s:4:"type";s:3:"pkg";s:7:"channel";s:12:"pear.php.net";s:4:"name";s:4:"PEAR";s:3:"rel";s:2:"ge";s:7:"version";s:5:"1.5.4";s:8:"optional";s:2:"no";}i:2;a:6:{s:4:"type";s:3:"pkg";s:7:"channel";s:12:"pear.php.net";s:4:"name";s:11:"HTML_Common";s:3:"rel";s:2:"ge";s:7:"version";s:3:"1.2";s:8:"optional";s:2:"no";}}s:11:"maintainers";a:1:{i:0;a:5:{s:4:"name";s:14:"Klaus Guenther";s:5:"email";s:22:"klaus@capitalfocus.org";s:6:"active";s:3:"yes";s:6:"handle";s:7:"thesaur";s:4:"role";s:4:"lead";}}}s:10:"xsdversion";s:3:"2.0";s:13:"_lastmodified";i:1284634077;}

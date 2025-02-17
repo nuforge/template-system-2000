@@ -1,0 +1,1 @@
+<div id="profile_site_card"><a href="http://www.webcomictv.com/site/{site_profile[parent][site_unique]}/" title="{site_profile[parent][site_title]}" target="_blank"><img src="/images/sites/{site_profile[parent][site]}-card-{site_profile[parent][site_unique]}.png" width="150" height="80" alt="{site_profile[parent][site_title]}" border="0"/></a></div>

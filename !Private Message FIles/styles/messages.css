@@ -1,0 +1,48 @@
+/* CSS Document */
+TABLE.messages {margin-top: 0; }
+TABLE.messages td {border: none; vertical-align: middle;}
+
+
+.messages td.message_avatar {width: 70px;}
+.messages td.message_sent {font-size: 10px; }
+a.message_subject { font-size: 16px; }
+a.message_subject:hover { }
+.messages .username { }
+.messages .username:hover { }
+
+.message_container {overflow:auto; margin-bottom: 10px;}
+.message_container .grey_box {overflow: auto;}
+.message_action {text-align: center; width: 2%;}
+
+.match_details {margin: 5px; padding: 5px; border-top: 1px solid #999999; font-size: 10px;}
+.message_left {float: left; width: 70px; text-align: center; margin-right: 10px; padding: 1px;}
+.message_body {float: left; margin-right: 10px; width: 480px;}
+.message_body p {margin-top: 0;}
+.message_body h2 {margin-bottom: .5em;}
+.message_right { float: left; font-size: 10px;}
+
+#message_respond TEXTAREA { width: 98%;}
+#message_respond .manager_container {text-align: right;}
+
+#messages_nav {margin-top: 10px; padding: 1px; overflow: auto;}
+#messages_nav ul {list-style: none; margin: 0; padding: 0; overflow: auto;}
+#messages_nav li {float: left; margin-right: 7px;}
+#messages_nav a { display: block; padding: 5px 10px; font-weight: bold;
+ margin-bottom: 10px;
+ border-radius: 5px;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+
+background: #EEEEEE; color: #003377;
+}
+
+#messages_nav a:hover {background: #DDDDDD;}
+
+#messages_nav  a.compose_message { display: block; padding: 5px 7px; 
+ border-radius: 5px; background: #dd0000; color: #FFFFFF;}
+#messages_nav  a.compose_message:hover {background: #990000;}
+
+
+#messages_nav  a.current {background: #005090; color: #ffffff;}
+#messages_nav  a.current:hover {background: #0070B0; color: #ffffff; }
+.grey_box.not_reader {background: #FFFFFF;}

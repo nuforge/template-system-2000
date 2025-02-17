@@ -1,0 +1,507 @@
+<?php
+
+class page {
+
+    public $tpldirs = array('default');
+    private $baseFolders = array('../templates/');
+
+    public function __construct($site=false) {
+        if (!empty($site)) {
+            $this->site = $site;
+        }
+        if (method_exists($this, 'localInitialize')) {
+            $this->localInitialize();
+        }
+        if (method_exists($this, 'globalInitialize')) {
+            $this->globalInitialize();
+        }
+        if (method_exists($this, 'localReinitialize')) {
+            $this->localReinitialize();
+        }
+    }
+
+    public function outputPrepartion() {
+        return true;
+    }
+
+    protected function findTemplate($name, $dirs) {
+        $found = false;
+        for ($a = 0; $a < count($this->baseFolders) && !$found; $a++) {
+
+            $base = $this->baseFolders[$a];
+            $temp_dir = $dirs;
+            while (!empty($temp_dir) && $dir = $base . array_pop($temp_dir)) {
+                if (file_exists($dir . '/' . $name . '.tpl')) {
+                    return $dir;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function output($name='main', $tpldir=false) {
+        $this->outputPrepartion();
+        if ($tpldir) {
+            $this->tpldir = $tpldir;
+        } else {
+            if (!($this->tpldir = $this->findTemplate($name, $this->tpldirs))) {
+                return false;
+            }
+        }
+        $tpl = new HTML_Template_Flexy(array('templateDir' => $this->tpldir, 'compileDir' => '/tmp/flexy_compiled_templates/'));
+        $tpl->compile($name . '.tpl');
+        if (isset($this->elements)) {
+            $tpl->outputObject($this, $this->elements);
+        } else {
+            $tpl->outputObject($this);
+        }
+    }
+
+    public function display($pg) {
+        $this->pg = $pg;
+        if (method_exists($this, 'pg_' . $pg)) {
+            call_user_func(array($this, 'pg_' . $pg));
+        } else {
+            return $this->output();
+        }
+    }
+
+    public function errors($show = true) {
+        ini_set("display_errors", $show);
+    }
+
+    public function fillDates($years=13, $end=90) {
+        for ($a = 1; $a <= 31; $a++) {
+            $t_array['days'][str_pad($a, 2, "0", STR_PAD_LEFT)] = $a;
+        }
+        for ($a = 1; $a <= 12; $a++) {
+            $t_array['months'][str_pad($a, 2, "0", STR_PAD_LEFT)] = date('M', mktime(0, 0, 0, $a, 1));
+        }
+        for ($a = date('Y') - $years; $a >= date('Y') - $end; $a--) {
+            $t_array['years'][$a] = $a;
+        }
+        return $t_array;
+    }
+
+    public function split_date($string, $prefix='b') {
+        $keys = array($prefix . 'y', $prefix . 'm', $prefix . 'd');
+        $values = explode('-', $string);
+        return array_combine($keys, $values);
+    }
+
+
+    public function fillForms($array) {
+        foreach ($array as $key => $val) {
+            if (empty($this->elements[$key])) {
+                $this->elements[$key] = new HTML_Template_Flexy_Element;
+            } $this->elements[$key]->setValue($val);
+        }
+    }
+
+    public function appendTitle($title, $f_seperator='|') {
+        if (empty($this->page['title'])) {
+            $this->page['title'] = $title;
+        } else {
+            $this->page['title'] = $title . ' ' . $f_seperator . ' ' . $this->page['title'];
+        }
+        return $this->page['title'];
+    }
+
+    public function appendDescription($description, $join=' - ') {
+        if (empty($this->page['description'])) {
+            $this->page['description'] = $description;
+        } else {
+            $this->page['description'] = $description . $join . $this->page['description'];
+        }
+        return $this->page['description'];
+    }
+
+    public function adpendKeywords($keywords) {
+        if (is_array($keywords)) {
+            $keywords = implode(',', $keywords);
+        }
+        if (empty($this->page['keywords'])) {
+            $this->page['keywords'] = $keywords;
+        } else {
+            $this->page['keywords'] = $keywords . ',' . $this->page['keywords'];
+        }
+        return $this->page['keywords'];
+    }
+
+    public function apTitle($title, $f_seperator='|') {
+        if (empty($this->page['title'])) {
+            $this->page['title'] = $title;
+        } else {
+            $this->page['title'] = $title . ' ' . $f_seperator . ' ' . $this->page['title'];
+        }
+        return $this->page['title'];
+    }
+
+    public function apDescription($description, $join=' - ') {
+        if (empty($this->page['description'])) {
+            $this->page['description'] = $description;
+        } else {
+            $this->page['description'] = $description . $join . $this->page['description'];
+        }
+        return $this->page['description'];
+    }
+
+    public function adKeywords($keywords) {
+        if (is_array($keywords)) {
+            $keywords = implode(',', $keywords);
+        }
+        if (empty($this->page['keywords'])) {
+            $this->page['keywords'] = $keywords;
+        } else {
+            $this->page['keywords'] = $keywords . ',' . $this->page['keywords'];
+        }
+        return $this->page['keywords'];
+    }
+
+    public function encodeString($string, $replace='-', $lower=true) {
+        $text = preg_replace("[\-$]", '', preg_replace("[\W+]", $replace, $string));
+        if ($lower) {
+            return strtolower($text);
+        }
+        return $text;
+    }
+
+    public function dateFormat($format, $date=false) {
+        $var = ($date) ? date($format, strtotime($date)) : date($format);
+        return $var;
+    }
+
+    public function rowMod($integer, $mod=2, $plus=1, $string="row") {
+        return $string . (($integer % $mod) + $plus);
+    }
+
+    public function modRow($integer, $mod=2, $plus=1, $string="row") {
+        return $string . (($integer % $mod) + $plus);
+    }
+
+    public function storeValue($title, $value) {
+        $this->$title = $value;
+    }
+
+    public function addValue($title, $value) {
+        $this->$title += $value;
+    }
+
+    public function subValue($title, $value) {
+        $this->$title -= $value;
+    }
+
+    public function appendValue($title, $value) {
+        $this->$title .= $value;
+    }
+
+    public function truncate($string, $length, $cap='...', $start=0) {
+        if (strlen($string) > $length) {
+            return substr($string, $start, $length) . $cap;
+        } else {
+            return $string;
+        }
+    }
+
+    public function getDomain($url = false) {
+        if (empty($url)) {
+            $url = $_SERVER['HTTP_HOST'];
+        }
+        $count = (count(explode(".", $url)) - 1);
+        if (ereg("\co\.", $url)) {
+            $count--;
+        }
+        $domain = preg_replace("/([^\.]+)\./i", "", $url, $count - 1);
+
+        return $domain;
+    }
+
+    public function mathAdd($num1, $num2=1) {
+        return $num1 + $num2;
+    }
+
+    public function mathMultiply($num1, $num2=1) {
+        return $num1 * $num2;
+    }
+
+    public function mathSub($num1, $num2=1) {
+        return $num1 - $num2;
+    }
+
+    public function mathDivide($num1, $num2=1) {
+        if ($num2 == 0) {
+            return false;
+        }
+        return $num1 / $num2;
+    }
+
+    public function mathRound($num, $round=2) {
+        return round($num, $round);
+    }
+
+    public function mathMod($integer, $mod=2, $plus=0) {
+        if (($integer + $plus) % $mod) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function compareLessThan($num1, $num2, $andEqual = false) {
+        if ($andEqual) {
+            return $num1 <= $num2;
+        } else {
+            return $num1 < $num2;
+        }
+    }
+
+    public function compareGreaterThan($num1, $num2, $andEqual = false) {
+        if ($andEqual) {
+            return $num1 >= $num2;
+        } else {
+            return $num1 > $num2;
+        }
+    }
+
+    public function text2html($text, $autolink=false, $paragraph=true) {
+        $text = str_replace('\r\n\r\n', '</p><p>', $text);
+        $text = nl2br($text);
+        if ($autolink) {
+            $text = $this->hyperlink($text);
+        }
+        if ($paragraph) {
+            return '<p>' . $text . '</p>';
+        } else {
+            return $text;
+        }
+    }
+
+    public function text2html2($text, $autolink=false, $paragraph=true) {
+        $pattern = '/\n\n/';
+        $text = preg_replace($pattern, '</p><p>', $text);
+        $text = nl2br($text);
+        if ($autolink) {
+            $text = $this->hyperlink($text);
+        }
+        if ($paragraph) {
+            return '<p>' . $text . '</p>';
+        } else {
+            return $text;
+        }
+    }
+
+    function hyperlink($text) {
+        // match protocol://address/path/file.extension?some=variable&another=asf%
+        $text = preg_replace("/([a-zA-Z]+:\/\/[a-z0-9\_\.\-]+[a-z]{2,6}[a-zA-Z0-9\/\*\-\?\_\&\%\=\,\.]+)/", "<a href=\"$1\">$1</a>", $text);
+        // match www.something.domain/path/file.extension?some=variable&another=asf%
+        // $text = preg_replace("/[^a-z]+[^:\/\/](www\.[^\.]+[\w][\.|\/][a-zA-Z0-9\/\*\-\?\&\%\=\,\.]+)/"," <a href=\"http://$1\" target=\"_blank\">$1</a>", $text);
+        // match name@address + ?subject etc...
+        //$text = preg_replace("/([\s|\,\>])([a-zA-Z][a-zA-Z0-9\_\.\-]*[a-zA-Z]*\@[a-zA-Z][a-zA-Z0-9\_\.\-]*[a-zA-Z]{2,6})([A-Za-z0-9\!\?\@\#\$\%\^\&\*\(\)\_\-\=\+]*)([\s|\.|\,\<])/i","$1<a href=\"mailto:$2$3\">$2</a>$4",$text);
+        return $text;
+    }
+
+    public function checkMod($integer, $mod=2, $plus=0) {
+        if (($integer + $plus) % $mod) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function compare($value1, $value2, $not=false, $exact=false) {
+        if (!$exact) {
+            if (!$not) {
+                return ($value1 == $value2);
+            } else {
+                return ($value1 != $value2);
+            }
+        } else {
+            if (!$not) {
+                return ($value1 === $value2);
+            } else {
+                return ($value1 !== $value2);
+            }
+        }
+    }
+
+    public function bbcode($text) {
+        $parser = new HTML_BBCodeParser();
+        $parser->setText(strip_tags($text));
+        $parser->addfilters('links,lists,basic,forums');
+        $parser->parse();
+        return $this->text2html($parser->getParsed());
+    }
+
+    public function pg_captcha($height=50, $width=150, $color=false, $aFonts=array('../fonts/VeraBd.ttf', '../fonts/VeraIt.ttf', '../fonts/Vera.ttf')) {
+        $oVisualCaptcha = new PhpCaptcha($aFonts, $width, $height);
+        $oVisualCaptcha->UseColour($color);
+        $oVisualCaptcha->Create();
+    }
+
+    public function addTemplateDirectory($f_template_directory, $f_position=false) {
+        return ($f_position) ? $this->tpldirs[$f_position] = $f_template_directory : $this->tpldirs[] = $f_template_directory;
+    }
+
+    public function removeTemplateDirectory($f_template_directory) {
+        while (($pos = array_search($f_template_directory, $this->tpldirs)) !== false) {
+            unset($this->tpldirs[$pos]);
+        }
+    }
+
+    public function setTemplateDirectory($f_template_directory) {
+        unset($this->tpldirs);
+        $this->tpldirs[0] = $f_template_directory;
+    }
+
+    public function addScriptFile($f_script_filename, $f_type='text/javascript', $f_position=false) {
+        $file = array('src' => $f_script_filename, $f_type);
+        return ($f_position) ? $this->scriptfiles[$f_position] = $file : $this->scriptfiles[] = $file;
+    }
+
+    public function removeScriptFile($f_script_filename) {
+        unset($this->scriptfiles[$f_script_filename]);
+    }
+
+    public function setScriptFile($f_script_filename, $f_type='text/javascript') {
+        $file = array('src' => $f_script_filename, $f_type);
+        unset($this->scriptfiles);
+        $this->scriptfiles[0] = $file;
+    }
+
+    public function addStylesheet($f_stylesheet, $f_position=false) {
+        return ($f_position) ? $this->stylesheets[$f_position] = $f_stylesheet : $this->stylesheets[] = $f_stylesheet;
+    }
+
+    public function removeStylesheet($f_stylesheet) {
+        while (($pos = array_search($f_stylesheet, $this->stylesheets)) !== false) {
+            unset($this->stylesheets[$pos]);
+        }
+    }
+
+    public function setStylesheet($f_stylesheet) {
+        unset($this->stylesheets);
+        $this->stylesheets[0] = $f_stylesheet;
+    }
+
+    public function addBaseFolder($f_base_folder, $f_position=false) {
+        if ($f_position !== false) {
+            array_splice($this->baseFolders, $f_position, 0, $f_base_folder);
+        } else {
+            $this->baseFolders[] = $f_base_folder;
+        }
+        return true;
+    }
+
+    public function checkBaseFolders() {
+        var_dump($this->baseFolders);
+    }
+
+    public function configurePlugin($f_plugin_name,$f_override_templates=false,$f_plugin_main_url=false) {
+
+        $mainurl = ($f_plugin_main_url) ? $f_plugin_main_url : $this->page['mainurl'];
+
+        $this->site = $f_plugin_name;
+        $this->page['metaurl'] = $mainurl . $f_plugin_name . '/';
+        $this->addTemplateDirectory($f_plugin_name,$f_override_template);
+        $this->addStylesheet($f_plugin_name,$f_override_template);
+        return true;
+    }
+
+    public function getPagination($f_page_number=1, $f_show_per_page=25, $f_total=false, $f_display=5) {
+        if (empty($f_total)) {
+            return false;
+        }
+        $p['current'] = $f_page_number;
+        if ($f_show_per_page >= $f_total) {
+            return $p;
+        }
+
+        $p['start'] = (($f_page_number - 1) * $f_show_per_page);
+        $p['end'] = $p['start'] + $f_show_per_page;
+        if ($p['end'] > $f_total) {
+            $p['end'] = $f_total;
+        }
+        $p['last'] = ceil($f_total / $f_show_per_page);
+        if ($f_page_number + 1 <= $p['last']) {
+            $p['next'] = $f_page_number + 1;
+            $p['lastshow'] = true;
+        }
+        if ($f_page_number - 1 >= 1) {
+            $p['previous'] = $f_page_number - 1;
+
+            $p['first'] = true;
+        }
+        $p['startshow'] = $p['start'] + 1;
+
+        $range = floor($f_display / 2);
+        if ($range < 1) {
+            $range = 1;
+        }
+        //If more than one page.
+        if ($p['last'] > 1) {
+            //If last page is less than the display count.
+            if ($p['last'] < $f_display) {
+                for ($a = 1; $a <= $p['last']; $a++) {
+                    $p['range'][] = $a;
+                    $p['lastshow'] = false;
+                }
+                //If last page is greater than display count.
+            } else {
+                //If the number of total pages is less than display count.
+                if (($f_page_number + $range) < $f_display) {
+                    for ($a = 1; $a <= $f_display; $a++) {
+                        $p['range'][] = $a;
+                        $p['startshow'] = false;
+                    }
+
+                    //If the number of total pages is greater than display count.
+                } else {
+                    //If the number of shown pages is greater than last page.
+                    if (($f_page_number + $f_display) > $p['last']) {
+                        for ($a = ($p['last'] - $f_display) + 1; $a <= $p['last']; $a++) {
+                            $p['range'][] = $a;
+                            $p['lastshow'] = false;
+                        }
+                        //If the number of shown pages is less than last page.
+                    } else {
+                        $left = $f_page_number + $range;
+                        for ($a = ($f_page_number - $range); $a <= $left; $a++) {
+                            if ($a < 1) {
+                                $left++;
+                            } else {
+                                $p['range'][] = $a;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($p['range'][0] == 1) {
+            $p['first'] = false;
+        }
+
+
+        if ($p['range'][count($p['range']) - 1] == $p['last']) {
+            $p['lastshow'] = false;
+        }
+
+        return $p;
+    }
+
+
+
+    // FLEXY RETURN FUNCTIONS
+
+    public function numberFormat($num, $dec=0, $ds='.', $ts=',') {
+        return number_format($num, $dec, $ds, $ts);
+    }
+
+    public function implodeArray($pieces, $glue) {
+        return implode($glue, $pieces);
+    }
+
+
+}
+
+?>

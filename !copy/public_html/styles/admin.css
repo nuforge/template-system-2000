@@ -1,0 +1,110 @@
+a {color: #0000FF; text-decoration: none; cursor: pointer;}
+a:hover{color: #000000; }
+
+p {margin-top: 0;}
+
+LABEL {cursor: pointer;}
+
+HTML {  background: #FFFFFF; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 12px; color: #323232; }
+BODY {width: 960px; margin: 0 auto;}
+
+
+INPUT { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 12px; }
+TEXTAREA { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 12px; }
+SELECT { font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 12px;  }
+
+td {vertical-align: top;}
+th {vertical-align: top;}
+
+H1 {font-size: 16px; font-weight: bold; margin: 0px; margin-bottom: 1em; text-transform:capitalize;}
+H2 {font-size: 14px; font-weight: bold; margin: 0; margin-bottom: 1em; color: #FFBC00;}
+H3 {font-size: 12px; font-weight: normal; font-style: italic; margin: 0px;}
+H4 {font-size: 12px; font-weight: bold; margin: 0px;}
+
+FORM {margin: 0px;}
+FORM em {color: #666666; font-style: normal; font-size: 10px}
+PRE {padding: 1em; background: #ffffff; margin: 1em; color: #000000;}
+
+FIELDSET {border: 1px solid #323232; padding: .5em; margin: .5em 1.5em;}
+LEGEND {padding: .2em; font-size: 12px; font-weight: bold;}
+
+.action_icon {cursor: pointer;}
+
+#header {}
+#content {}
+#footer {margin-top: 1em; padding: 1em; text-align: center; font-size: 8pt; clear:both;}
+
+TABLE.standard {width:100%; margin: 1em 0; border-collapse: collapse;}
+TABLE.standard th {paddinG: 1em; text-align: left; }
+Table.standard td {paddinG: 1em;}
+
+TABLE.standard .right {text-align: right;}
+TABLE.standard .center {text-align: center;}
+
+tr.row1, tr.row1 td {}
+tr.row2, tr.row2 td {}
+
+.small {font-size:10px;}
+
+.error legend {text-transform: capitalize;}
+.error ul {list-style-type: none; margin: 0 1em; padding: 0;}
+
+
+.SimpleTip{ position:relative; }
+.SimpleTip div{ display: none; }
+.SimpleTipHover{ position:relative; }
+
+.SimpleTipHover div{
+    font-size: 12px;
+    font-weight: normal;
+    padding:4px;
+    position:absolute;
+    display:block;
+    left:0px; /* correct positioning*/
+    top:auto; /* adjust positioning from top so that tool tip will come above the elemnt */
+    text-align: left;
+    /* make it visible above the all elment, z-index decide the order of elements we show on page. 5000 is much higher value and tool tip will always come above of all elements */
+    z-index:5000;
+    /* DON'T CHANGE ANYTHING BEYOND THIS LINE */
+    /* making round corners for Moziall Firefox and Safari. IE dosen't support */
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+}
+
+.suggest_link {
+    cursor: pointer;
+}
+.suggest_link_over {
+    cursor: pointer;
+    padding: 5px;
+}
+#search_suggest {
+    position: absolute;
+    text-align: left;
+    cursor: pointer;
+    top:auto;
+    z-index:5000;
+}
+
+#blanket {
+    background-color:#111;
+    opacity: 0.65;
+    filter:alpha(opacity=65);
+    position:absolute;
+    z-index: 9001;
+    top:0px;
+    left:0px;
+    width:100%;
+}
+
+.popUpDiv {
+    position:absolute;
+    z-index: 9002; }
+
+
+.default_popup { }
+
+
+.popUpDiv .error_message { }
+
+.information_hover {cursor: help;  }

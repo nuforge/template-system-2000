@@ -1,0 +1,79 @@
+database    
+username  
+password *84tdRFH?nya
+
+CREATE TABLE members (
+    member SERIAL PRIMARY KEY,
+    mem_username character varying(64) NOT NULL,
+    mem_unique character varying(64) NOT NULL UNIQUE,
+    mem_password character varying(32) NOT NULL,
+    mem_email text NOT NULL
+);
+
+CREATE TABLE privileges (
+    privilege SERIAL PRIMARY KEY,
+    privilage_title character varying(64) NOT NULL,
+    privilege_description text,
+    privilege_unique character varying(64) NOT NULL UNIQUE
+);
+
+CREATE TABLE member_privileges (
+    member_privilege SERIAL PRIMARY KEY,
+    mp_member integer NOT NULL REFERENCES members ON UPDATE CASCADE ON DELETE CASCADE,
+    mp_privilege integer NOT NULL REFERENCES privileges ON UPDATE CASCADE ON DELETE CASCADE,
+    unique(mp_member,mp_privilege)
+);
+
+CREATE TABLE favorites (
+    favorite SERIAL PRIMARY KEY,
+    fav_member INTEGER NOT NULL REFERENCES members ON UPDATE CASCADE ON DELETE CASCADE,
+    fav_favorite INTEGER NOT NULL REFERENCES members ON UPDATE CASCADE ON DELETE CASCADE,
+    fav_stamp TIMESTAMP DEFAULT NOW(),
+    unique (fav_member, fav_favorite)
+);
+
+
+
+CREATE TABLE conversations (
+    conversation SERIAL PRIMARY KEY,
+    con_sender integer NOT NULL REFERENCES members ON UPDATE CASCADE ON DELETE CASCADE,
+    con_recipient integer NOT NULL REFERENCES members ON UPDATE CASCADE ON DELETE CASCADE,
+    con_subject	VARCHAR (140) NOT NULL,
+    con_visible	boolean NOT NULL default true,
+    con_flagged boolean NOT NULL DEFAULT false
+);
+
+
+CREATE TABLE message_types (
+    message_type SERIAL PRIMARY KEY,
+    mt_title VARCHAR (64) NOT NULL,
+    mt_description text NOT NULL
+);
+
+INSERT INTO message_types (mt_title, mt_description) VALUES ('Message', 'Your basic message');
+
+CREATE TABLE messages (
+   message SERIAL PRIMARY KEY,
+    message_conversation INTEGER NOT NULL REFERENCES conversations ON UPDATE CASCADE ON DELETE CASCADE,
+    message_type INTEGER NOT NULL REFERENCES message_types ON UPDATE CASCADE ON DELETE RESTRICT,
+    message_sender INTEGER NOT NULL REFERENCES members ON UPDATE CASCADE ON DELETE CASCADE,
+    message_sent timestamp NOT NULL DEFAULT NOW(),
+    message_read timestamp,
+    message_body TEXT
+);
+
+CREATE TABLE conversation_folders (
+    conversation_folder SERIAL PRIMARY KEY,
+    cf_member INTEGER NOT NULL REFERENCES members ON UPDATE CASCADE ON DELETE CASCADE,
+    cf_conversation INTEGER NOT NULL REFERENCES conversations ON UPDATE CASCADE ON DELETE CASCADE,
+    cf_folder VARCHAR(140) NOT NULL,
+    cf_stamp TIMESTAMP NOT NULL DEFAULT NOW(),
+    unique (cf_member,cf_conversation,cf_folder)
+);
+
+
+
+
+
+
+

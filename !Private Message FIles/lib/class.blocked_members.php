@@ -1,0 +1,62 @@
+<?PHP 
+class blocked_members extends sitemanager_DB_Object {
+
+	public $primarykey = 'blocked_member';
+
+        public function clearBlockedMember ($f_member) {
+		$t_mem = $this->loadClass('members');
+		$member = $t_mem->load($f_member);
+                if(empty($member)) {return false;}
+
+                $query = 'DELETE FROM blocked_members WHERE bl_member = ' .$member['member'] .';';
+                return @pg_query($query);
+        }
+
+        public function checkForUser ($f_member, $f_to_test) {
+		$t_mem = $this->loadClass('members');
+		$member = $t_mem->load($f_member);
+		$to_test = $t_mem->load($f_to_test);
+
+                $query = "SELECT count(blocked_member) FROM blocked_members WHERE bl_member = " . $member['member'] . " AND (bl_block = " . $to_test['member'] . " OR lower(bl_username) = '" . $to_test['member_unique'] . "');";
+
+                $result = @pg_fetch_assoc(@pg_query($query));
+
+                return ($result['count']) ? true : false;
+
+        }
+
+
+    public function getUsernameList($order=false, $where=false, $limit=false, $offset=false, $group=false, $table=false) {
+        if (!$table) {
+            $table = $this->table;
+        }
+        $query = "SELECT coalesce(member_username,bl_username) as bl_username
+                    FROM " . $table . "
+
+                LEFT JOIN members ON (bl_block = member)
+
+                ";
+        if ($where) {
+            $query .= $this->formatWhere($where);
+        }
+        if ($group) {
+            $query .= $this->formatGroup($group);
+        }
+        if ($order) {
+            $query .= $this->formatOrder($order);
+        }
+        if ($limit) {
+            $query .= ' LIMIT ' . $limit . ' ';
+        }
+        if ($offset) {
+            $query .= ' OFFSET ' . $offset . ' ';
+        }
+$result = @pg_query($query . ';');
+        while($a =  @pg_fetch_assoc($result) ) {
+            $return[] = $a['bl_username'];
+        }
+        return $return;
+    }
+
+}
+?>

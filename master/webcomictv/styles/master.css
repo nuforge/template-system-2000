@@ -1,0 +1,50 @@
+#site_profile_details {float: left; margin-right: 10px; overflow: hidden;}
+#site_profile_description { float: right; margin-top: 10px;}
+
+#site_profile h1 {font-size: 16px; margin: 0;}
+
+#site_comments h2 {font-size: 16px; margin: 0;}
+
+.site_header {
+    border-bottom-left-radius: 0;
+    -moz-border-radius-bottomleft: 0;
+    margin-bottom: 0;}
+
+.back_to_directory {float: right;}
+
+
+#site_profile_details  .round_dark.flat_top {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    padding-top: 0;overflow: hidden;
+}
+
+.site_details_list {margin: 10px 0 0 0; padding: 0; list-style: none;}
+.site_details_list li {margin-bottom: 5px;}
+
+
+#site_statistics {}
+.site_statistics_list {margin: 10px 0 0 0; padding: 0; list-style: none;}
+.site_statistics_list li {margin-bottom: 5px}
+
+
+.site_details_list {margin: 10px 0 0 0; padding: 0; list-style: none;}
+
+.site_details_list li {margin-bottom: 5px;}
+
+
+.site_list_webcomic {overflow: auto; margin-bottom: 10px;}
+.site_list_image {float: left; width: 160px; height: 80px;}
+.site_list_description {margin-left: 170px; margin-right: 210px; color: #B9b9b9;}
+.site_list_details {float: right; width: 200px;}
+
+.site_list_details ul {margin: 0; padding: 0; list-style: none;}
+.site_list_details li {margin-bottom: 5px;}
+
+.site_exit {float: right; font-size: 10px; margin-right: 10px;}
+#site_profile_site_children a {margin: 5px;}
+
+#site_profile_site_awards .small {margin-top: 10px; text-align: center;}
+.site_award {text-align: center;}
